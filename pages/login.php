@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../db.php';
+include '../db.php'; // Ensure this file connects to the database
 
 if (isset($_POST['login'])) {
     $mysqli = new mysqli("localhost", "root", "1544", "travel_itinerary_planner");
@@ -10,11 +10,10 @@ if (isset($_POST['login'])) {
     }
 
     $username = $_POST['username'];
-    $password = $_POST['password']; // Correctly getting password from form
-    // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $password = $_POST['password']; 
 
-    // Prepare and execute query
-    $stmt = $mysqli->prepare("SELECT password FROM users WHERE username = ?");
+    // Fetch user_id along with password
+    $stmt = $mysqli->prepare("SELECT user_id, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -22,11 +21,12 @@ if (isset($_POST['login'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $storedHash = $row['password'];
-        echo "Password from DB: " . $row['password'] . "<br>"; 
-        if (password_verify($_POST['password'], $storedHash)) {
+
+        if (password_verify($password, $storedHash)) {
+            $_SESSION['user_id'] = $row['user_id'];  // Store user_id in session
             $_SESSION['username'] = $username;
-            echo "Login successful!";
-            header("Location: loginSuccess.html");
+
+            header("Location: createTrips.php");
             exit();
         } else {
             echo "Invalid credentials.";
@@ -47,7 +47,6 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../assets/css/loginSignup.css"> -->
     <!-- boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- googleFonts -->
@@ -269,7 +268,6 @@ hr{
       </div>
   </section>
   <script src="../assets/js/login.js"></script>
-  <!-- <script src="../assets/js/loginSignup.js"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>

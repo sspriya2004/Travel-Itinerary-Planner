@@ -3,40 +3,32 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-include '../db.php'; // Ensure this file contains the database connection settings
+include '../db.php'; 
 
 if (isset($_POST['signup'])) {
     $mysqli = new mysqli("localhost", "root", "1544", "travel_itinerary_planner");
 
-    // Check for database connection error
     if ($mysqli->connect_error) {
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-    // Retrieve and sanitize user input
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Hash the password before storing it
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare and bind the SQL statement
     $stmt = $mysqli->prepare("INSERT INTO users(username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $hashedPassword); // Use hashed password
+    $stmt->bind_param("sss", $username, $email, $hashedPassword); 
 
-    // Execute the statement and check for success
     if ($stmt->execute()) {
-        // Optionally set a session variable or message
         echo "Registration successful!";
         header("Location: signupSuccess.html");
-        exit(); // Use exit after header redirection
+        exit(); 
     } else {
         echo "Error: " . $stmt->error;
-        exit(); // Use exit after header redirection
+        exit(); 
     }
 
-    // Close the statement and connection
     $stmt->close();
     $mysqli->close();
 }
@@ -49,7 +41,6 @@ if (isset($_POST['signup'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../assets/css/loginSignup.css"> -->
     <!-- boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- googleFonts -->
@@ -225,7 +216,6 @@ hr{
   <section>
   <div class="container forms">
       <div class="form signup" style="background: hwb(0 100% 0% / 0.55); backdrop-filter: blur(19px); height: 566px;">
-          <!-- <div class="form content"> -->
               <header>Create an account</header>
               
               <form action="signup.php" method="post">
@@ -245,12 +235,6 @@ hr{
                       <input type="password" class="password" placeholder="Create a new Password" id="password" name="password" required>
                       <i class='bx bx-hide eye-icon'></i>
                   </div>
-<!-- 
-                  <div class="field input-field">
-                      <i class='bx bx-key icons'></i>
-                      <input type="password" class="hidepassword" placeholder="Confirm new Password" id="password-confirm" required>
-                     <i class='bx bx-hide eye-icon'></i> 
-                  </div> -->
                   </div>
                   
                   <div>
@@ -265,7 +249,6 @@ hr{
               <div class="form-link">
                   <span>Already have an account? <a href="login.php" class="link login-link" id="signup-clr">Login</a> </span>                    
               </div>
-          <!-- </div> -->
       </div>
 
       <div class="col-sm-6 px-0 d-none d-sm-block rounded" id="carousel-container">
@@ -274,7 +257,6 @@ hr{
       </div>
   </section>
   <script src="../assets/js/signup.js"></script>
-  <!-- <script src="../assets/js/loginSignup.js"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>

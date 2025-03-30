@@ -1,3 +1,48 @@
+<?php
+session_start();
+include "../db.php";
+
+if (!isset($_SESSION['user_id'])) {
+    die("You must be logged in to create a trip.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+if (isset($_POST['form_submit'])) {
+    $title = $_POST['title'];
+    $destination = $_POST['destination'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+
+    $start = new DateTime($start_date);
+    $end = new DateTime($end_date);
+    $duration = $start->diff($end)->days;
+
+    $travellers = $_POST['travellers'];
+
+    $sql = "INSERT INTO trips (user_id, title, destination, start_date, end_date, duration, no_of_travellers) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("issssii", $user_id, $title, $destination, $start_date, $end_date, $duration, $travellers);
+
+    if ($stmt->execute()) {
+        echo "New trip created successfully!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,16 +67,7 @@
         </div>
         <h3 class="text-white text-center span-text">Travel Itinerary Planner</h3>
         <div class="container nav-container">
-            <!-- header -->
-            <!-- <div class="icon-text">
-                <div class="i-container py-1">
-                    <span class="material-symbols-outlined">
-                    keyboard_arrow_down
-                    </span>
-                </div>
-                <p class="menu-text text-white">Forms</p>
-            </div> -->
-            <!-- #1_menu -->
+            
             <div class="menu-container ">
                 <div class="icon-text ">
                     <div class="i-container">
@@ -70,15 +106,7 @@
                     </li>    
                 </div>
             </div>
-            <!-- header -->
-            <!-- <div class="icon-text mt-3">
-                <div class="i-container py-1">
-                    <span class="material-symbols-outlined">
-                    keyboard_arrow_down
-                    </span>
-                </div>
-                <p class="menu-text text-white">Views</p>
-            </div> -->
+           
             <!-- #1_menu -->
             <div class="menu-container">
                 <div class="icon-text">
@@ -110,83 +138,51 @@
                 <div class="i-container py-1">
                     <i class='bx bx-log-out-circle bx-icon'></i>
                 </div>
-                <button class="menu-text text-white btn-logout" id="btn-logout">Logout</button>
+                <button class="menu-text text-white btn-logout" id="btn-logout" name="logout">Logout</button>
             </div>
         </div>
     </div>
     <section class="main-content" id="main-content">
         <div class="container py-5 mt-0">
-            <form method="post" class=" rounded shadow form p-5" id="form-validate">
-                <h2 class="text-center mb-5 text-grad">Staff Profile Entry Form</h2>
+            <form method="post" action="createTrips.php" class=" rounded shadow form p-5" id="form-validate">
+                <h2 class="text-center mb-5 text-grad">Create your trip and Start your journey</h2>
                 <div class="row d-flex">
                     <div class="col mb-5">
-                        <input type="hidden" id="username" value="">
-                        <label class="form-label">Staff Name</label>
-                        <input type="text" class="form-fields" id="staff_name" placeholder="Ex: Lekha.R" required>
-                        <div class="invalid-feedback">Please enter the name</div>
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-fields" id="title" name="title" placeholder="Add a title for your trip" required>
                     </div>
                 </div>
+
                 <div class="row d-flex">
                     <div class="col-sm-6 justify-content-between mb-5">
-                        <label class="form-label">Gender</label>
-                        <select class="form-fields" id="gender" required>
-                            <option value="" selected disabled hidden>Select</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <div class="invalid-feedback">Please select the gender</div>
+                        <label class="form-label">Number of Travellers</label>
+                        <input type="number" class="form-fields" id="travellers" name="travellers" placeholder="Number of travellers" required>
                     </div>
                     <div class="col-sm-6 justify-content-between mb-5">
-                        <label class="form-label">Date Of Birth</label>
-                        <input type="date" class="form-fields" placeholder="Enter Date of Birth" id="date_of_birth" required> 
-                        <div class="invalid-feedback">Please enter the date of birth</div>
+                        <label class="form-label">Destination</label>
+                        <input type="text" class="form-fields" placeholder="Destination" id="destination" name="destination" required> 
                     </div>
                 </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Whatsapp Number</label>
-                        <input type="number" class="form-fields" placeholder="Enter the Number" id="whatsapp_number" required> 
-                        <div class="invalid-feedback">Please enter the whatsapp number</div>
-                    </div>
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Alternative Number</label>
-                        <input type="number" class="form-fields" placeholder="Enter Alternative Number" id="alternative_number" required> 
-                        <div class="invalid-feedback">Please enter the alternative number</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-fields" placeholder="Enter Address" id="address" required> 
-                        <div class="invalid-feedback">Please enter the address</div>
-                    </div>
-                </div>
+                
                 <div class="row d-flex">
                     <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">City</label>
-                        <input type="text" class="form-fields" placeholder="Enter City" id="city" required> 
-                        <div class="invalid-feedback">Please enter the city</div>
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-fields" id="start_date" name="start_date" required> 
                     </div>
+
                     <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">State</label>
-                        <input type="text" class="form-fields" placeholder="Enter State" id="state" required> 
-                        <div class="invalid-feedback">Please enter the state</div>
+                    <label class="form-label">End Date</label>
+                        <input type="date" class="form-fields" id="end_date" name="end_date" required> 
                     </div>
+
                     <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">Pincode</label>
-                        <input type="number" class="form-fields" placeholder="Enter the Pincode" id="pincode" required> 
-                        <div class="invalid-feedback">Please enter the pincode</div>
+                        <label class="form-label">Duration</label>
+                        <input type="number" class="form-fields" placeholder="in days" id="duration" name="duration" readonly required> 
                     </div>
                 </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Date of Joining</label>
-                        <input type="date" class="form-fields" id="joining_date" required>
-                        <div class="invalid-feedback">Please enter the joining date</div>
-                    </div>
-                </div>
+                
                 <div class="container d-flex btn-container mt-3">
-                    <button type="submit" class="btn-grad mb-5 form-submit" id="formSubmit">Submit</button>    
+                    <button type="submit" class="btn-grad mb-5 form-submit" id="formSubmit" name="form_submit">Submit</button>    
                 </div>
             </form>
         </div>

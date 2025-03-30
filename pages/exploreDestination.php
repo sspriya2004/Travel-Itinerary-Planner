@@ -22,16 +22,7 @@
         </div>
         <h3 class="text-white text-center span-text">Travel Itinerary Planner</h3>
         <div class="container nav-container">
-            <!-- header -->
-            <!-- <div class="icon-text">
-                <div class="i-container py-1">
-                    <span class="material-symbols-outlined">
-                    keyboard_arrow_down
-                    </span>
-                </div>
-                <p class="menu-text text-white">Forms</p>
-            </div> -->
-            <!-- #1_menu -->
+            
             <div class="menu-container ">
                 <div class="icon-text ">
                     <div class="i-container">
@@ -70,16 +61,7 @@
                     </li>    
                 </div>
             </div>
-            <!-- header -->
-            <!-- <div class="icon-text mt-3">
-                <div class="i-container py-1">
-                    <span class="material-symbols-outlined">
-                    keyboard_arrow_down
-                    </span>
-                </div>
-                <p class="menu-text text-white">Views</p>
-            </div> -->
-            <!-- #1_menu -->
+            
             <div class="menu-container">
                 <div class="icon-text">
                     <div class="i-container py-1">

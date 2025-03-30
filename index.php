@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,6 @@
               <a href="pages/myTrips.php" class="btn btn-primary btn-explore">
                 Get Started
               </a>
-                <!-- <button class="">Explore now </button> -->
             </center>
           </div>
         </div>
