@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
             $_SESSION['user_id'] = $row['user_id'];  // Store user_id in session
             $_SESSION['username'] = $username;
 
-            header("Location: createTrips.php");
+            header("Location: myTrips.php");
             exit();
         } else {
             echo "Invalid credentials.";

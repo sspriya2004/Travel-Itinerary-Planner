@@ -27,7 +27,7 @@ if (isset($_POST['form_submit'])) {
     $stmt->bind_param("issssii", $user_id, $title, $destination, $start_date, $end_date, $duration, $travellers);
 
     if ($stmt->execute()) {
-        echo "New trip created successfully!";
+        header("Location: tripCreated.html");
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -36,12 +36,6 @@ if (isset($_POST['form_submit'])) {
     $conn->close();
 }
 ?>
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,7 +132,9 @@ if (isset($_POST['form_submit'])) {
                 <div class="i-container py-1">
                     <i class='bx bx-log-out-circle bx-icon'></i>
                 </div>
-                <button class="menu-text text-white btn-logout" id="btn-logout" name="logout">Logout</button>
+                <a href="logout.php">
+                    <button class="menu-text text-white btn-logout" id="btn-logout" name="logout">Logout</button>
+                </a>
             </div>
         </div>
     </div>

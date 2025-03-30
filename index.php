@@ -24,8 +24,8 @@
             <p class="display-3 disp3 text-white text-center">"Go Far, Go Wide... <br> Where Every Mile Tells a Story"</p>
             <h4 class="display-6 disp6 text-white">Plan trips based on your budget by exploring our top destinations</h4>
             <center>
-              <a href="pages/myTrips.php" class="btn btn-primary btn-explore">
-                Get Started
+              <a href="pages/login.php" class="btn btn-primary btn-explore">
+                Login
               </a>
             </center>
           </div>

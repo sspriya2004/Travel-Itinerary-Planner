@@ -92,7 +92,9 @@
                 <div class="i-container py-1">
                     <i class='bx bx-log-out-circle bx-icon'></i>
                 </div>
-                <button class="menu-text text-white btn-logout" id="btn-logout">Logout</button>
+                <a href="logout.php">
+                    <button class="menu-text text-white btn-logout" id="btn-logout" name="logout">Logout</button>
+                </a>
             </div>
         </div>
     </div>
