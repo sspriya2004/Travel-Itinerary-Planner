@@ -14,6 +14,7 @@ if (isset($_POST['signup'])) {
     $stmt->bind_param("sss", $username, $email, $password);
 
     if ($stmt->execute()) {
+        header("Location: ../index.php");
         echo "Registration successful!";
     } else {
         echo "Error: " . $stmt->error;
@@ -255,7 +256,8 @@ hr{
           </div>
       </div>
   </section>
-  <!-- <script src="../assets/js/loginSignup.js"></script> -->
+  <script src="../assets/js/signup.js"></script>
+  <script src="../assets/js/loginSignup.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>

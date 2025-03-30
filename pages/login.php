@@ -1,4 +1,41 @@
 
+<?php
+session_start();
+
+if (isset($_POST['login'])) {
+    $mysqli = new mysqli("localhost", "root", "1544", "travel_itinerary_planner");
+
+    if ($mysqli->connect_error) {
+        die("Connection failed: " . $mysqli->connect_error);
+    }
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $stmt = $mysqli->prepare("SELECT password FROM users WHERE name = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['username'] = $username;
+            header("Location: ../index.php");
+        } else {
+            echo "Invalid credentials.";
+        }
+    } else {
+        echo "User not found.";
+    }
+
+    $stmt->close();
+    $mysqli->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -239,6 +276,7 @@ hr{
           </div>
       </div>
   </section>
+  <script src="../assets/js/login.js"></script>
   <script src="../assets/js/loginSignup.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
