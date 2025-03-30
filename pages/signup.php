@@ -1,25 +1,43 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+include '../db.php'; // Ensure this file contains the database connection settings
+
 if (isset($_POST['signup'])) {
     $mysqli = new mysqli("localhost", "root", "1544", "travel_itinerary_planner");
 
+    // Check for database connection error
     if ($mysqli->connect_error) {
         die("Connection failed: " . $mysqli->connect_error);
     }
 
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    // Retrieve and sanitize user input
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-    $stmt = $mysqli->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $password);
+    // Hash the password before storing it
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+    // Prepare and bind the SQL statement
+    $stmt = $mysqli->prepare("INSERT INTO users(username, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $email, $hashedPassword); // Use hashed password
+
+    // Execute the statement and check for success
     if ($stmt->execute()) {
-        header("Location: ../index.php");
+        // Optionally set a session variable or message
         echo "Registration successful!";
+        header("Location: ../index.php");
+        exit(); // Use exit after header redirection
     } else {
         echo "Error: " . $stmt->error;
+        header("Location: ../config.php");
+        exit(); // Use exit after header redirection
     }
 
+    // Close the statement and connection
     $stmt->close();
     $mysqli->close();
 }
@@ -211,29 +229,29 @@ hr{
           <!-- <div class="form content"> -->
               <header>Create an account</header>
               
-              <form action="signup.php" method="POST" id="form">
+              <form action="signup.php" method="post">
                   <div class="input-container">
                   <div class="field input-field">
                       <i class='bx bx-user icons'></i>
-                      <input type="text" class="input" placeholder="Create a Username" id="username" required>
+                      <input type="text" class="input" placeholder="Create a Username" id="username" name="username" required>
                   </div>
 
                   <div class="field input-field">
                       <i class='bx bx-envelope icons'></i>
-                      <input type="email" class="input" placeholder="Enter your email" id="email">
+                      <input type="email" class="input" placeholder="Enter your email" id="email" name="email">
                   </div>  
 
                   <div class="field input-field">
                       <i class='bx bx-key icons'></i>
-                      <input type="password" class="password" placeholder="Create a new Password" id="password" required>
+                      <input type="password" class="password" placeholder="Create a new Password" id="password" name="password" required>
                       <i class='bx bx-hide eye-icon'></i>
                   </div>
-
+<!-- 
                   <div class="field input-field">
                       <i class='bx bx-key icons'></i>
                       <input type="password" class="hidepassword" placeholder="Confirm new Password" id="password-confirm" required>
-                      <!-- <i class='bx bx-hide eye-icon'></i> -->
-                  </div>
+                     <i class='bx bx-hide eye-icon'></i> 
+                  </div> -->
                   </div>
                   
                   <div>
@@ -241,7 +259,7 @@ hr{
                   </div>
 
                   <div class="field button-field">
-                      <button type="submit" id="signup-btn"style="margin-top:19px" >Signup</button>
+                      <button type="submit" id="signup-btn"style="margin-top:19px" name="signup">Signup</button>
                   </div>
               </form>
               
@@ -257,7 +275,7 @@ hr{
       </div>
   </section>
   <script src="../assets/js/signup.js"></script>
-  <script src="../assets/js/loginSignup.js"></script>
+  <!-- <script src="../assets/js/loginSignup.js"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>

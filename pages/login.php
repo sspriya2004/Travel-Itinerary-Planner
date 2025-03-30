@@ -1,6 +1,6 @@
-
 <?php
 session_start();
+include '../db.php';
 
 if (isset($_POST['login'])) {
     $mysqli = new mysqli("localhost", "root", "1544", "travel_itinerary_planner");
@@ -10,20 +10,24 @@ if (isset($_POST['login'])) {
     }
 
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = $_POST['password']; // Correctly getting password from form
+    // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $mysqli->prepare("SELECT password FROM users WHERE name = ?");
+    // Prepare and execute query
+    $stmt = $mysqli->prepare("SELECT password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
-    
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        
-        if (password_verify($password, $row['password'])) {
+        $storedHash = $row['password'];
+        echo "Password from DB: " . $row['password'] . "<br>"; 
+        if (password_verify($_POST['password'], $storedHash)) {
             $_SESSION['username'] = $username;
-            header("Location: ../index.php");
+            echo "Login successful!";
+            header("Location: loginSuccess.html");
+            exit();
         } else {
             echo "Invalid credentials.";
         }
@@ -82,14 +86,12 @@ box-sizing: border-box;
     padding-top:  50px;
     border-radius: 18px;
     border: 3px solid #E5E4E2;
-    /* border-bottom: none; */
     border-right: none ;
     
 }
 
 header{
     font-size: 27px;
-    /* font-weight: 600; */
     color: black;
     text-align: center;
 }
@@ -125,7 +127,6 @@ form .field{
     border-left: none;
     padding: 0px 40px;
     font-size: 14px;
-    /* transition:  0.2s ease-in-out; */
     transition-timing-function: ease;
     background-color: transparent;
 }
@@ -183,7 +184,6 @@ hr{
     text-align: center;
     margin-top: 21px;
     font-size: 15px;
-    /* padding-bottom: 20px; */
 }
 .form a{
     color: darkslategray;
@@ -193,7 +193,6 @@ hr{
 }
 #signup-clr{
     color: royalblue;
-    /* text-decoration: none; */
     font-size: 15px;
     margin-left: 2px;
 }
@@ -227,32 +226,25 @@ hr{
   <section>
   <div class="container forms">
       <div class="form login" style="background: hwb(0 100% 0% / 0.55); backdrop-filter: blur(19px); height: 566px;">
-          <!-- <div class="form content"> -->
+
               <header>Let's get started</header>
             
-              <form action="login.php" method="POST">
+              <form action="login.php" method="post">
                   <div class="input-container">
                   <div class="field input-field">
                       <i class='bx bx-user icons'></i>
-                      <input type="text" class="input" placeholder="Username" id="username" required>
+                      <input type="text" class="input" placeholder="Username" id="username" name="username" required>
                   </div>
 
                   <div class="field input-field">
                       <i class='bx bx-key icons'></i>
-                      <input type="password" class="password" placeholder="Password" id="password" required>
+                      <input type="password" class="password" placeholder="Password" id="password" name="password" required>
                       <i class='bx bx-hide eye-icon'></i>
                   </div>
                   </div>
 
-                  <!-- <div class="form-link">
-                      
-                  </div> -->
-
                   <div class="form-link">
-                      <!-- <div style="float: left;">
-                          <input type="checkbox" class="checkbox" style="accent-color: #E49B0F;">
-                          <label for="" style="font-size: 14px;"> Remember me </label>
-                      </div> -->
+
                       <a href="#" class="forgot-pass" >Forgot password?</a>
                   </div>
 
@@ -261,14 +253,14 @@ hr{
                   </div>
 
                   <div class="field button-field">
-                      <button type="submit" id="login-btn">Login</button>
+                      <button type="submit" id="login-btn" name="login">Login</button>
                   </div>
               </form>
               
               <div class="form-link">
                   <span>Not a member? <a href="signup.php" class="link signup-link" id="signup-clr">Create an account</a> </span>                    
               </div>
-          <!-- </div> -->
+
       </div>
 
       <div class="col-sm-6 px-0 d-none d-sm-block rounded" id="carousel-container">
@@ -277,7 +269,7 @@ hr{
       </div>
   </section>
   <script src="../assets/js/login.js"></script>
-  <script src="../assets/js/loginSignup.js"></script>
+  <!-- <script src="../assets/js/loginSignup.js"></script> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>
