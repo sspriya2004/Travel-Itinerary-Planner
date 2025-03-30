@@ -20,27 +20,27 @@
         <div class="menu-toggle" id="menu-toggle">
             <span>☰</span>
         </div>
-        <h3 class="text-white text-center span-text">Tuition Management</h3>
+        <h3 class="text-white text-center span-text">Travel Itinerary Planner</h3>
         <div class="container nav-container">
             <!-- header -->
-            <div class="icon-text">
+            <!-- <div class="icon-text">
                 <div class="i-container py-1">
                     <span class="material-symbols-outlined">
                     keyboard_arrow_down
                     </span>
                 </div>
                 <p class="menu-text text-white">Forms</p>
-            </div>
+            </div> -->
             <!-- #1_menu -->
-            <div class="menu-container  ">
+            <div class="menu-container">
                 <div class="icon-text ">
                     <div class="i-container">
                         <span class="material-symbols-outlined">
-                            currency_rupee_circle
+                            flight
                         </span>
                     </div>
                     <li class="menu-text">   
-                        <a href="AddTuitionFees.html" class="menu-link">Add Fees</a>
+                        <a href="myTrips.php" class="menu-link">My Trips</a>
                     </li>    
                 </div>
             </div>
@@ -49,59 +49,59 @@
                 <div class="icon-text ">
                     <div class="i-container">
                         <span class="material-symbols-outlined">
-                            person_add
+                            add_circle
                         </span>
                     </div>
                     <li class="menu-text">   
-                        <a href="AddStudProfiles.html" class="menu-link">Add a Student</a>
+                        <a href="createTrips.php" class="menu-link">Create Trips</a>
                     </li>    
                 </div>
             </div>
             <!-- #3_menu -->
-            <div class="menu-container menu-active">
+            <div class="menu-container">
                 <div class="icon-text ">
                     <div class="i-container">
                         <span class="material-symbols-outlined">
-                            badge
+                            travel_explore
                         </span>
                     </div>
                     <li class="menu-text">   
-                        <a href="AddStaffProfiles.html" class="menu-link">Add a Staff</a>
+                        <a href="exploreDestination.php" class="menu-link">Explore Destination</a>
                     </li>    
                 </div>
             </div>
             <!-- header -->
-            <div class="icon-text mt-3">
+            <!-- <div class="icon-text mt-3">
                 <div class="i-container py-1">
                     <span class="material-symbols-outlined">
                     keyboard_arrow_down
                     </span>
                 </div>
                 <p class="menu-text text-white">Views</p>
-            </div>
+            </div> -->
             <!-- #1_menu -->
             <div class="menu-container">
                 <div class="icon-text">
                     <div class="i-container py-1">
                         <span class="material-symbols-outlined">
-                            table_view
+                            confirmation_number
                         </span>
                     </div>
                     <li class="menu-text">   
-                        <a href="ViewTuitionFees.html" class="menu-link">View Fees</a>
+                        <a href="bookings.php" class="menu-link">Bookings</a>
                     </li>    
                 </div>
             </div>
             <!-- #2_menu -->
-            <div class="menu-container">
+            <div class="menu-container  menu-active">
                 <div class="icon-text">
                     <div class="i-container py-1">
                         <span class="material-symbols-outlined">
-                            group
+                            currency_rupee_circle
                         </span>
                     </div>
                     <li class="menu-text">   
-                        <a href="ViewStudDetails.html" class="menu-link">View Students</a>
+                        <a href="budgetExpenses.php" class="menu-link">Budget and Expense</a>
                     </li>    
                 </div>
             </div>

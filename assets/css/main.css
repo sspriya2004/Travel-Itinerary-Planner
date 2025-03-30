@@ -80,12 +80,13 @@ input, select{
   width: 87%;
   height: 100%;
   padding: 20px 0px;
+  margin-top: 64px;
 }
 .icon-text{
   display: inline-flex;
   padding: 0;
   height: 33px;
-  margin: 3px 0px;
+  margin: 10px 0px;
 }
 .span-text{
   font-size: 20px;
@@ -123,8 +124,9 @@ input, select{
   margin-left: 25px;
   transition: 0.1s ease;
   padding: 0px 9px; 
-  margin-bottom: 3px;
+  margin-bottom: 37px;
   border: none;
+  height: 51px;
 }
 .menu-container:hover, .logout-div:hover{
   background-color: rgba(255, 255, 255, 0.1);

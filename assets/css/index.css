@@ -12,11 +12,11 @@
 }
 .disp3{
     position: relative;
-    top: 116px;
+    top: 183px;
 }
 .disp6{
     position: relative;
-    top: 116px;
+    top: 188px;
     font-size: 30px;
     text-align: center;
 }
@@ -27,7 +27,7 @@
 }
 .btn-explore{
     position: relative;
-    top: 158px;
+    top: 216px;
     height: 55px;
     width: 153px;
     font-size: 20px;
