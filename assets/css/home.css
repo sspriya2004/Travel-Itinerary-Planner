@@ -1,0 +1,79 @@
+.navbar-light{
+    background-color: #aad6ec;  
+    height: 90px; 
+    box-shadow:  0 2px 5px 0 rgba(0,0,0,0.16);
+}
+.bg-img{
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)),url(../images/pexels-jeremy.jpg);
+    background-size: 100% 100%;
+    height: 100vh;
+}
+.disp3{
+    position: relative;
+    top: 116px;
+}
+.disp6{
+    position: relative;
+    top: 116px;
+    font-size: 30px;
+    text-align: center;
+}
+.img-box-container{
+    background: white;
+    border-radius: 10px;
+    height: 521px;
+}
+.btn-explore{
+    position: relative;
+    top: 158px;
+    height: 55px;
+    width: 153px;
+    font-size: 20px;
+}
+.expand_more{
+    position: relative;
+    left: 5px;
+    top: 7px;
+}
+#reviews{
+    height: 367px;
+    margin-top: -40px;
+}
+.hover-zoom:hover{
+    -ms-transform: scale(1.0); /* IE 9 */
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+}
+.hover-zoom{
+    transition: transform .5s;
+    margin-top: 60px;
+    border-radius: 20px;
+
+}
+.description{
+    position: relative;
+    top: -43px;
+}
+.i{
+    font-size: 68px;
+}
+#dest{
+    width: 100%;
+    height: 364px; 
+    filter: brightness(60%);
+}
+#offer-img{
+    background-image: url(../images/cropped.jpg);
+    background-size: 100% 100%;
+    height: 175px;
+    box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+}
+#shadow{
+    box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 2px 8px 0px rgba(0,0,0,0.75);
+}

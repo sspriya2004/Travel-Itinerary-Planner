@@ -29,11 +29,10 @@ if (isset($_POST['signup'])) {
     if ($stmt->execute()) {
         // Optionally set a session variable or message
         echo "Registration successful!";
-        header("Location: ../index.php");
+        header("Location: signupSuccess.html");
         exit(); // Use exit after header redirection
     } else {
         echo "Error: " . $stmt->error;
-        header("Location: ../config.php");
         exit(); // Use exit after header redirection
     }
 

@@ -1,0 +1,50 @@
+.overlay-text{
+    position: relative;
+    bottom: 678px;
+    line-height: 76px;
+    text-align: center;
+    font-weight: 300;
+}
+.img-container{
+    border-bottom-left-radius: 13px;
+    border-top-left-radius: 13px;
+}
+/* .text-container{
+    border-bottom-right-radius: 13px;
+    border-top-right-radius: 13px;
+} */
+.text-container strong{
+    font-size: 23px;
+    
+}
+#rate-no{
+    color: #ffbf00;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-left: 20px;
+    position: relative;
+    bottom: 25px;
+    left: 71px;
+}
+.hover-zoom:hover{
+    -ms-transform: scale(1.0); /* IE 9 */
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+  }
+  .hover-zoom{
+    transition: transform .5s;
+  }
+#pricings{
+    font-size: 25px;
+    color: #00004d;
+    margin-left: 31px;
+}
+.btn-bookroom{
+    height: 38px;
+    width: 118px;
+    margin-top: 79px;
+}
+.row-container{
+    height: 176px;
+    border-radius: 13px;
+}
