@@ -24,6 +24,7 @@ if (isset($_POST['login'])) {
 
         if (password_verify($password, $storedHash)) {
             $_SESSION['user_id'] = $row['user_id'];  // Store user_id in session
+            $_SESSION['username'] = $row['username'];
             $_SESSION['username'] = $username;
 
             header("Location: myTrips.php");

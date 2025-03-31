@@ -17,7 +17,7 @@ if (isset($_POST['no'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Done Signup</title>
+    <title>Logout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- done -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,200" />
@@ -31,7 +31,7 @@ if (isset($_POST['no'])) {
     <div class="rounded shadow container p-4 " style="width: 700px; ">
         <center>
         <i>
-            <span class="material-symbols-outlined" style="font-size: 101px;">task_alt</span>
+            <span class="material-symbols-outlined" style="font-size: 101px;">logout</span>
         </i> 
         <p class="display-5 mt-3">
             Are you sure that you want to logout?
