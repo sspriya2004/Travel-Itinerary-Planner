@@ -146,80 +146,7 @@ $result = $stmt->get_result();
     <section class="main-content" id="main-content">
     <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
     <div class="container py-5 mt-0">
-            <!-- <form method="post" class=" rounded shadow form p-5" id="form-validate">
-                <h2 class="text-center mb-5 text-grad">Staff Profile Entry Form</h2>
-                <div class="row d-flex">
-                    <div class="col mb-5">
-                        <input type="hidden" id="username" value="">
-                        <label class="form-label">Staff Name</label>
-                        <input type="text" class="form-fields" id="staff_name" placeholder="Ex: Lekha.R" required>
-                        <div class="invalid-feedback">Please enter the name</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="col-sm-6 justify-content-between mb-5">
-                        <label class="form-label">Gender</label>
-                        <select class="form-fields" id="gender" required>
-                            <option value="" selected disabled hidden>Select</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <div class="invalid-feedback">Please select the gender</div>
-                    </div>
-                    <div class="col-sm-6 justify-content-between mb-5">
-                        <label class="form-label">Date Of Birth</label>
-                        <input type="date" class="form-fields" placeholder="Enter Date of Birth" id="date_of_birth" required> 
-                        <div class="invalid-feedback">Please enter the date of birth</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Whatsapp Number</label>
-                        <input type="number" class="form-fields" placeholder="Enter the Number" id="whatsapp_number" required> 
-                        <div class="invalid-feedback">Please enter the whatsapp number</div>
-                    </div>
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Alternative Number</label>
-                        <input type="number" class="form-fields" placeholder="Enter Alternative Number" id="alternative_number" required> 
-                        <div class="invalid-feedback">Please enter the alternative number</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-fields" placeholder="Enter Address" id="address" required> 
-                        <div class="invalid-feedback">Please enter the address</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">City</label>
-                        <input type="text" class="form-fields" placeholder="Enter City" id="city" required> 
-                        <div class="invalid-feedback">Please enter the city</div>
-                    </div>
-                    <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">State</label>
-                        <input type="text" class="form-fields" placeholder="Enter State" id="state" required> 
-                        <div class="invalid-feedback">Please enter the state</div>
-                    </div>
-                    <div class="mb-5 col-sm-4 justify-content-between">
-                        <label class="form-label">Pincode</label>
-                        <input type="number" class="form-fields" placeholder="Enter the Pincode" id="pincode" required> 
-                        <div class="invalid-feedback">Please enter the pincode</div>
-                    </div>
-                </div>
-                <div class="row d-flex">
-                    <div class="mb-5 col-sm-6 justify-content-between">
-                        <label class="form-label">Date of Joining</label>
-                        <input type="date" class="form-fields" id="joining_date" required>
-                        <div class="invalid-feedback">Please enter the joining date</div>
-                    </div>
-                </div>
-                <div class="container d-flex btn-container mt-3">
-                    <button type="submit" class="btn-grad mb-5 form-submit" id="formSubmit">Submit</button>    
-                </div>
-            </form> -->
-            <table id="table">
+        <table id="table">
         <tr>
             <th>Title</th>
             <th>Destination</th>
@@ -240,8 +167,8 @@ $result = $stmt->get_result();
                         <td>{$row['duration']}</td>
                         <td>{$row['no_of_travellers']}</td>
                         <td>
-                            <a href='edit_trip.php?id={$row['trip_id']}' class='btn-delete btn btn-primary' style='width: 110px;'>Edit</a> &nbsp
-                            <a href='delete_trip.php?id={$row['trip_id']}' class='btn-delete btn btn-danger' style='width: 110px;' onclick='return confirm(\"Are you sure?\")'>Delete</a> &nbsp 
+                            <a href='editTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-primary' style='width: 110px;'>Edit</a> &nbsp
+                            <a href='deleteTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-danger' style='width: 110px;'>Delete</a> &nbsp 
                         </td>
                     </tr>";
             }
