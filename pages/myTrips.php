@@ -4,7 +4,8 @@ include "../db.php"; // Include your database connection file
 
 // Ensure user is logged in
 if (!isset($_SESSION['user_id'])) {
-    die("You must be logged in to view your trips.");
+    echo "You must be logged in to view your trips.";
+    header("Location: login.php");
 }
 
 $user_id = $_SESSION['user_id']; // Get logged-in user ID
@@ -167,8 +168,8 @@ $result = $stmt->get_result();
                         <td>{$row['duration']}</td>
                         <td>{$row['no_of_travellers']}</td>
                         <td>
-                            <a href='editTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-primary' style='width: 110px;'>Edit</a> &nbsp
-                            <a href='deleteTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-danger' style='width: 110px;'>Delete</a> &nbsp 
+                            <a href='editTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-primary' style='width: 100px;'>Edit</a> &nbsp
+                            <a href='deleteTrip.php?trip_id={$row['trip_id']}' class='btn-delete btn btn-danger' style='width: 100px;'>Delete</a> &nbsp 
                         </td>
                     </tr>";
             }

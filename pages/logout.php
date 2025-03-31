@@ -31,7 +31,7 @@ if (isset($_POST['no'])) {
     <div class="rounded shadow container p-4 " style="width: 700px; ">
         <center>
         <i>
-            <span class="material-symbols-outlined" style="font-size: 101px;">logout</span>
+            <span class="material-symbols-outlined" style="font-size: 101px; color:gray;">logout</span>
         </i> 
         <p class="display-5 mt-3">
             Are you sure that you want to logout?

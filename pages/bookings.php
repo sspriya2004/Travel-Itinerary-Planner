@@ -1,3 +1,9 @@
+<?php
+include "../db.php";
+session_start();
+$user_id = $_SESSION['user_id']; // Get logged-in user ID
+$username = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,6 +106,7 @@
         </div>
     </div>
     <section class="main-content" id="main-content">
+    <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
         <div class="container py-5 mt-0">
             <form method="post" class=" rounded shadow form p-5" id="form-validate">
                 <h2 class="text-center mb-5 text-grad">Staff Profile Entry Form</h2>

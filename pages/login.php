@@ -33,7 +33,7 @@ if (isset($_POST['login'])) {
             echo "Invalid credentials.";
         }
     } else {
-        echo "User not found.";
+        echo "<script>alert('User not found')</script>";
     }
 
     $stmt->close();

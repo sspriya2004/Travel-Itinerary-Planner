@@ -6,8 +6,8 @@ if (!isset($_SESSION['user_id'])) {
     die("You must be logged in to create a trip.");
 }
 
-$user_id = $_SESSION['user_id'];
-
+$user_id = $_SESSION['user_id']; // Get logged-in user ID
+$username = $_SESSION['username'];
 if (isset($_POST['form_submit'])) {
     $title = $_POST['title'];
     $destination = $_POST['destination'];
@@ -139,6 +139,7 @@ if (isset($_POST['form_submit'])) {
         </div>
     </div>
     <section class="main-content" id="main-content">
+    <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
         <div class="container py-5 mt-0">
             <form method="post" action="createTrips.php" class=" rounded shadow form p-5" id="form-validate">
                 <h2 class="text-center mb-5 text-grad">Create your trip and Start your journey</h2>
@@ -173,7 +174,7 @@ if (isset($_POST['form_submit'])) {
 
                     <div class="mb-5 col-sm-4 justify-content-between">
                         <label class="form-label">Duration</label>
-                        <input type="number" class="form-fields" placeholder="in days" id="duration" name="duration" readonly required> 
+                        <input type="number" class="form-fields" placeholder="Read automatically in days" id="duration" name="duration" readonly required> 
                     </div>
                 </div>
                 
