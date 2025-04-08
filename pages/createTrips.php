@@ -42,7 +42,7 @@ if (isset($_POST['form_submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuition Fees Entry Form</title>
+    <title>Create trips</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/forms.css">
     <!-- Bootstrap link -->
