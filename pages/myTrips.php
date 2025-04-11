@@ -19,6 +19,25 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 ?>
+<?php
+
+include '../db.php'; // your DB connection script
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userId = $_SESSION['user_id']; // Assuming user is logged in
+    $destinationId = $_POST['destination_id'];
+    $tripName = $_POST['name'];
+    $destination = $_POST['location'];
+
+    $stmt = $conn->prepare("INSERT INTO trips (user_id, title, destination, start_date, end_date, duration) VALUES (?, ?, ?, NULL, NULL, NULL)");
+    $stmt->bind_param("iss", $userId, $tripName, $destination);
+    $stmt->execute();
+
+    // echo "Trip added successfully!";
+    header("Refresh:0; url=myTrips.php");
+
+}
+?>
 
 
 <!DOCTYPE html>
@@ -42,10 +61,9 @@ $result = $stmt->get_result();
         table, th, td {
             border: 3px solid white;
             padding:20px;
-
         }
         #table{
-            margin-left: 39px;
+            /* margin-left: 39px; */
             border: 1px solid gray;
         }
         th{
@@ -56,7 +74,9 @@ $result = $stmt->get_result();
         td{
             border: 1px solid #D3D3D3 ;
         }
-
+        form{
+            width: 100%;
+        }
     </style>
 </head>
 <body class="wrapper">
@@ -145,8 +165,15 @@ $result = $stmt->get_result();
         </div>
     </div>
     <section class="main-content" id="main-content">
-    <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
-    <div class="container py-5 mt-0">
+        <div class="account" style="padding:30px; display: flex; float:right">
+            <span class="material-symbols-outlined" style="color: gray; float: left; position: relative; top: 3px;">
+                account_circle
+            </span>
+            <?php echo '<center"><span style="color: gray; font-size: 18px; float:right;">' . $username . '</span></center>'; ?>
+
+        </div>
+    <div class="container py-5 mt-5">
+
         <table id="table">
         <tr>
             <th>Title</th>
@@ -178,6 +205,7 @@ $result = $stmt->get_result();
         }
         ?>
     </table>
+
         </div>
     </section>
     <script src="../assets/js/main.js"></script>

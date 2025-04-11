@@ -14,7 +14,7 @@ if (isset($_GET['trip_id'])) {
 } else {
     die("Error: Trip ID is missing.");
 }
-
+echo $trip_id;
 // Fetch existing trip details
 $sql = "SELECT * FROM trips WHERE trip_id = ? AND user_id = ?";
 $stmt = $conn->prepare($sql);

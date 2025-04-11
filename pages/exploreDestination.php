@@ -1,94 +1,42 @@
 <?php
-include "../db.php";
 session_start();
+include "../db.php"; // Include your database connection file
+
+// Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    echo "You must be logged in to view your trips.";
+    header("Location: login.php");
+}
+
 $user_id = $_SESSION['user_id']; // Get logged-in user ID
-$username = $_SESSION['username'];
-if (isset($_POST['form_submit'])) {
+$username = $_SESSION['username']; 
 
-// Get user input from POST
-$budget = $_POST['budget'];
-$season = $_POST['season'];
-$traveler = $_POST['traveler'];
-$category = $_POST['category'];
 
-// Prepare SQL query
-$sql = "SELECT * 
-FROM destinations
-WHERE average_cost <= ?
-ORDER BY average_cost Desc;
+if (isset($_POST['submit'])) {
+    // echo "<script>
+    //         document.getElementById('form-validate').style = display:none;
+    //     </script>";
 
-";
-
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $budget);
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-// Display Results
-if ($result->num_rows > 0) {
-    echo "<script>document.getElementById('form-validate').style.display = 'none';</script>";
-    echo "<style>
-        table, th, td {
-            border: 3px solid white;
-            padding:20px;
-
-        }
-        #table{
-            margin-left: 39px;
-            border: 1px solid gray;
-        }
-        th{
-            background-image: linear-gradient(319deg, #fce055 0%, #4B70F5 51%, #03AED2 100%);
-            background-size: 150% 220%;
-            color: white;
-        }
-        td{
-            border: 1px solid #D3D3D3 ;
-        }
-
-    </style>
-    <section class='main-content' id='main-content'>
-    <table border='1' style='margin-top: 20px;' id='table'>
-            <tr>
-              <th>Name</th>
-              <th>Location</th>
-              <th>Cost</th>
-              <th>Season</th>
-              <th>Category</th>
-              <th>Rating</th>
-              <th>Action</th>
-            </tr>
-          ";
-            
-
-while ($row = $result->fetch_assoc()) {
-    echo "<tr>
-                <td>{$row['name']}</td>
-                <td>{$row['location']}</td>
-                <td>{$row['average_cost']}</td>
-                <td>{$row['best_season']}</td>
-                <td>{$row['category']}</td>
-                <td>{$row['rating']}</td>
-                <td>
-                  <form method='POST' action='myTrips.php' class='rounded shadow form p-5' id='form-validate'>
-                    <input type='hidden' name='destination_id' value='{$row['destination_id']}'>
-                    <input type='hidden' name='name' value='{$row['name']}'>
-                    <input type='hidden' name='location' value='{$row['location']}'>
-                    <input type='hidden' name='average_cost' value='{$row['average_cost']}'>
-                    <button type='submit'>Add to Your Trips</button>
-                  </form>
-                </td>
-              </tr>";
-}
-echo "</table>  </section>";
+    // $budget = $_POST['budget'];
+    // $season = $_POST['season'];
+    // $traveler = $_POST['traveler'];
+    // $category = $_POST['category'];
     
-} else {
-    echo "<script>alert('No destinations match your preferences.')</script>";
+    // $_SESSION['budget'] = $row['budget'];  // Store user_id in session
+    // $_SESSION['season'] = $row['best_season'];
+    // $_SESSION['traveler'] = $row['recommended_for'];  // Store user_id in session
+    // $_SESSION['category'] = $row['category'];
+    // $_SESSION['username'] = $username;
+    
+    header('Location: filter.php');
+
+    $stmt->close();
+    $conn->close();
 }
-$conn->close();
-}
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -190,32 +138,44 @@ $conn->close();
         </div>
     </div>
     <section class="main-content" id="main-content">
-    <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
-        <div class="container py-5 mt-0">
-            <form method="post" action="exploreDestination.php" class=" rounded shadow form p-5" id="form-validate">
-                <h2 class="text-center mb-5 text-grad">Search for Destinations</h2>
+    <div class="account" style="padding:30px; display: flex; float:right">
+            <span class="material-symbols-outlined" style="color: gray; float: left; position: relative; top: 3px;">
+                account_circle
+            </span>
+            <?php echo '<center"><span style="color: gray; font-size: 18px; float:right;">' . $username . '</span></center>'; ?>
+
+        </div>
+        <div class="container py-5 mt-3">
+            
+            <form method="post" action="filter.php" class="rounded shadow form p-5" id="form-validate" style="display: block;" >    
+            <h2 class="text-center mb-5 text-grad">Search for destination</h2>
+
                 <div class="row d-flex">
-                    <div class="col mb-5">
+                    <div class="col-sm">
                         <label class="form-label">Budget</label>
-                        <input type="number" class="form-fields" id="budget" name="budget" placeholder="Provide a budget" required>
+                        <input type="number" class="form-fields" id="budget" name="budget" placeholder="Provide a budget">
                     </div>
                 </div>
 
-                <div class="row d-flex">
-                <div class="col-sm-6 justify-content-between mb-5">
+
+                <div class="mt-5 row d-flex">
+                    <div class="col-sm justify-content-between mb-5">
                         <label class="form-label" name="season">Travel Season</label>
-                        <select class="form-fields" id="gender" name="season" required>
+                        <select class="form-fields" id="gender" name="season">
                             <option value="" selected disabled hidden>Select</option>
                             <option value="Summer">Summer</option>
                             <option value="Winter">Winter</option>
                             <option value="Monsoon">Monsoon</option>
-
                         </select>
-                        <div class="invalid-feedback">Please select the gender</div>
                     </div>
-                    <div class="col-sm-6 justify-content-between mb-5">
+                
+                </div>
+                
+
+                <div class="row d-flex">
+                    <div class="col-sm justify-content-between mb-5">
                         <label class="form-label" name="traveler">Type of Travelers</label>
-                        <select class="form-fields" id="gender" name="traveler" required>
+                        <select class="form-fields" id="gender" name="traveler">
                             <option value="" selected disabled hidden>Select</option>
                             <option value="Solo">Solo</option>
                             <option value="Couple">Couple</option>
@@ -223,14 +183,14 @@ $conn->close();
                             <option value="Group">Group</option>
                             <option value="Everyone">Everyone</option>
                         </select>
-                        <div class="invalid-feedback">Please select the gender</div>
                     </div>
+                  
                 </div>
                 
                 <div class="row d-flex">
-                <div class="col-sm-12 justify-content-between mb-5">
+                    <div class="col-sm justify-content-between mb-5">
                         <label class="form-label">Category</label>
-                        <select class="form-fields" id="gender" name="category" required>
+                        <select class="form-fields" name="category">
                             <option value="" selected disabled hidden>Select</option>
                             <option value="Beach">Beach</option>
                             <option value="Mountain">Mountain</option>
@@ -243,20 +203,30 @@ $conn->close();
                             <option value="Wildlife">Wildlife</option>
                             <option value="Luxury">Luxuary</option>
                             <option value="Spiritual">Spiritual</option>
-
                         </select>
-                        <div class="invalid-feedback">Please select the gender</div>
                     </div>
+                   
                 </div>
                 
-                <div class="container d-flex btn-container mt-3">
-                    <button type="submit" class="btn-grad mb-5 form-submit" id="formSubmit" name="form_submit">Submit</button>    
+
+                <div class="row d-flex">
+                    <div class="col-sm-4 container d-flex btn-container mt-3">
+                        <button type="submit" class="btn-grad mb-5 form-submit" id="form_submit" name="submit" onclick="formBlock()">Search</button>    
+                    </div>
                 </div>
+
+
             </form>
+
             <div id="resultTable" style="display: none;"></div>
         </div>
     </section>
     <script src="../assets/js/main.js"></script>
+    <script>
+        function formBlock(){
+            document.getElementById('form_submit').style.display = none;
+        }
+    </script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Bootstrap -->

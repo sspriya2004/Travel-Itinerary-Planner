@@ -106,7 +106,13 @@ $username = $_SESSION['username'];
         </div>
     </div>
     <section class="main-content" id="main-content">
-    <?php echo '<center style="margin-top:36px;"><span style="color: #4B70F5; font-weight: 600; font-size: 25px;">Logged in as ' . $username . '</span></center>'; ?>
+    <div class="account" style="padding:30px; display: flex; float:right">
+            <span class="material-symbols-outlined" style="color: gray; float: left; position: relative; top: 3px;">
+                account_circle
+            </span>
+            <?php echo '<center"><span style="color: gray; font-size: 18px; float:right;">' . $username . '</span></center>'; ?>
+
+        </div>
         <div class="container py-5 mt-0">
             <form method="post" class=" rounded shadow form p-5" id="form-validate">
                 <h2 class="text-center mb-5 text-grad">Staff Profile Entry Form</h2>
